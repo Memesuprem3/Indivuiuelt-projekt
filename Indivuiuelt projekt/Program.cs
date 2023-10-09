@@ -10,10 +10,10 @@ namespace Indivuiuelt_projekt
         static List<string> pins = new List<string> { "1234", "5678", "8912", "3456", "1337" };
         static List<double[]> Konton = new List<double[]>
 {
-    new double[] {100.00, 500.30},
-    new double[] {1500.00, 700},
-    new double[] {400.00, 10000, 20},
-    new double[] {460.00, 210},
+    new double[] {17000, 50000},
+    new double[] {1500, 700},
+    new double[] {400, 10000, 20},
+    new double[] {460, 210},
     new double[] {350, 150}
 };
         static int currentUserIndex = -1;
@@ -21,11 +21,47 @@ namespace Indivuiuelt_projekt
         static void Main(string[] args)
         {
             Console.WriteLine("Välkomen till Eazy-Bank!");
-
-            Program.Login();
-           
-
-
+            while (true)
+            {
+                if (Login())
+                {
+                    while (true)
+                    {
+                        Console.WriteLine("Välkomen till ditt konto.");
+                        Console.WriteLine("\nVälj vad du vill göra");
+                        Console.WriteLine("1. Se över konton & saldo");
+                        Console.WriteLine("2. Överföring mellan konton");
+                        Console.WriteLine("3. Ta ut pengar");
+                        Console.WriteLine("4. Logga ut");
+                        int choice;
+                        if (int.TryParse(Console.ReadLine(), out choice))
+                        {
+                            switch (choice)
+                            {
+                                case 1:
+                                    ShowAccountsAndBalnace();
+                                    break;
+                                case 2:
+                                    //TransferBetweenAccounts();
+                                    break;
+                                case 3:
+                                    //WithdrawMoney();
+                                    break;
+                                case 4:
+                                    //LOgout();
+                                    break;
+                                default:
+                                    Console.WriteLine("Ogiltigt val.");
+                                    break;
+                                    {
+                                        Console.WriteLine("Tryck på enter för att komma till huvudmenyn.");
+                                        Console.ReadLine();
+                                    }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
 
@@ -63,7 +99,15 @@ namespace Indivuiuelt_projekt
             return false;
         }
 
-
+        static void ShowAccountsAndBalnace()
+        {
+            Console.WriteLine("Dina konton och saldon: ");
+            double[] userAccounts = Konton[currentUserIndex];
+            for (int i= 0; i < userAccounts.Length; i++)
+            {
+                Console.WriteLine($"Konto {i +1}: {userAccounts[i]}");
+            }
+        }
 
     }
 
