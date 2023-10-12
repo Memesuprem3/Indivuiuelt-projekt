@@ -11,11 +11,11 @@ namespace Indivuiuelt_projekt
         static List<string> pins = new List<string> { "1234", "5678", "8912", "3456", "1337" };
         static List<double[]> Konton = new List<double[]>
 {
-    new double[] {17000, 50000},
-    new double[] {1500, 700},
-    new double[] {400, 10000, 20},
-    new double[] {460, 210},
-    new double[] {350, 150}
+    new double[] {17000.48, 50000.34},
+    new double[] {1500.99, 700.25},
+    new double[] {400.34, 10000.78},
+    new double[] {460.21, 210.11},
+    new double[] {350.56, 150.05}
 };
         static int currentUserIndex = -1;
         static int loginAttempts = 0;
@@ -107,9 +107,11 @@ namespace Indivuiuelt_projekt
             Console.Clear();
             Console.WriteLine("Dina konton och saldon: ");
             double[] userAccounts = Konton[currentUserIndex];
+            string[] accountNames = new string[] { "Lönekonto", "Sparkonto" };
+
             for (int i = 0; i < userAccounts.Length; i++)
             {
-                Console.WriteLine($"Konto {i + 1}: {userAccounts[i]}");
+                Console.WriteLine($"{accountNames[i]}: {userAccounts[i]:C}");
             }
         }
 
@@ -191,6 +193,7 @@ namespace Indivuiuelt_projekt
             Console.Clear();
             Console.WriteLine($"Loggar ut användare {users[currentUserIndex]}");
             currentUserIndex = -1;
+            Login();
         }
     }
 }
