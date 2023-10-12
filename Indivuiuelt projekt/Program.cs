@@ -1,4 +1,5 @@
-﻿using System.Net.NetworkInformation;
+﻿using System.ComponentModel.Design;
+using System.Net.NetworkInformation;
 using System.Xml;
 
 namespace Indivuiuelt_projekt
@@ -46,10 +47,10 @@ namespace Indivuiuelt_projekt
                                     TransferBetweenAccounts();                                   
                                     break;                                    
                                 case 3:
-                                    //WithdrawMoney();
+                                    WithdrawMoney();
                                     break;
                                 case 4:
-                                    //LOgout();
+                                    Logout();
                                     break;
                                 default:
                                     Console.Clear();
@@ -151,6 +152,45 @@ namespace Indivuiuelt_projekt
 
         }
 
+        static void WithdrawMoney()
+        {
+            Console.WriteLine("Ta ut pengar: ");
+            ShowAccountsAndBalnace();
+            Console.WriteLine("Väj ett konto att ta ut pengar från: ");
+            int accountIndex = int.Parse(Console.ReadLine()) - 1;
+            if (accountIndex < 0 || accountIndex >= Konton[currentUserIndex].Length)
+            {
+                Console.WriteLine("Ogilgitgt kontoval.");
+                return;
+            }
+            Console.WriteLine("Ange summa att ta ut: ");
+            double amount = double.Parse(Console.ReadLine());
+            if(amount > 0 && Konton[currentUserIndex][accountIndex] >= amount)
+            {
+                Console.WriteLine("Ange PIN-kod för att bekräfta uttag: ");
+                string pin = Console.ReadLine();
+                if (pins[currentUserIndex] == pin)
+                {
+                    Console.Clear();
+                    Konton[currentUserIndex][accountIndex] -= amount;
+                    Console.WriteLine($"Uttag genomfört. Nytt saldo på kontot {accountIndex + 1}: {Konton[currentUserIndex][accountIndex]:C}");
+                }
+                else
+                {
+                    Console.WriteLine("Felaktig PIN-kod. Försök igen.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Ogiltig summa eller otillräckligt saldo.");
+            }
+        }
 
+        static void Logout()
+        {
+            Console.Clear();
+            Console.WriteLine($"Loggar ut användare {users[currentUserIndex]}");
+            currentUserIndex = -1;
+        }
     }
 }
