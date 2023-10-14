@@ -7,12 +7,12 @@ namespace Indivuiuelt_projekt
 {
     internal class Program
     {
-        static List<string> users = new List<string> { "Anas", "Tobias", "Johanna", "Chris", "Ubbe" };
+        static List<string> users = new List<string> { "anas", "tobias", "johanna", "chris", "ubbe" };
         static List<string> pins = new List<string> { "1234", "5678", "8912", "3456", "1337" };
-        static List<double[]> Konton = new List<double[]>
+        static double[][] Konton = new double[][]
 {
-    new double[] {17000.48, 50000.34},
-    new double[] {1500.99, 700.25},
+    new double[] {17459.48, 50000.34},
+    new double[] {1560.99, 1337.25},
     new double[] {400.34, 10000.78},
     new double[] {460.21, 210.11},
     new double[] {350.56, 150.05}
@@ -21,14 +21,13 @@ namespace Indivuiuelt_projekt
         static int loginAttempts = 0;
         static void Main(string[] args)
         {
-            Console.WriteLine("Välkomen till Eazy-Bank!");
+            Console.WriteLine("Välkommen till Eazy-Bank!");
             while (true)
             {
                 if (Login())
                 {
                     while (true)
                     {
-                        
                         Console.WriteLine("\nVälj vad du vill göra");
                         Console.WriteLine("1. Se över konton & saldo");
                         Console.WriteLine("2. Överföring mellan konton");
@@ -42,26 +41,28 @@ namespace Indivuiuelt_projekt
                                 case 1:
                                     ShowAccountsAndBalnace();
                                     break;
-                                    
+
                                 case 2:
-                                    TransferBetweenAccounts();                                   
-                                    break;                                    
+                                    TransferBetweenAccounts();
+                                    break;
+
                                 case 3:
                                     WithdrawMoney();
                                     break;
+
                                 case 4:
                                     Logout();
                                     break;
+
                                 default:
                                     Console.Clear();
                                     Console.WriteLine("Ogiltigt val.");
                                     break;
-                                    {
-                                        Console.WriteLine("Tryck på enter för att komma till huvudmenyn.");
-                                        Console.ReadLine();
-                                    }
                             }
                         }
+                        Console.WriteLine("Klicka på Enter för att komma till huvudmenyn.");
+                        Console.ReadLine();
+                        Console.Clear();
                     }
                 }
             }
@@ -76,7 +77,7 @@ namespace Indivuiuelt_projekt
             while (loginAttempts < maxLoginAttempts)
             {
                 Console.Write("Ange användarnamn: ");
-                string username = Console.ReadLine();
+                string username = Console.ReadLine().ToLower();
                 Console.Write("Ange PIN-kod: ");
                 string pin = Console.ReadLine();
                 Console.Clear();
@@ -107,7 +108,7 @@ namespace Indivuiuelt_projekt
             Console.Clear();
             Console.WriteLine("Dina konton och saldon: ");
             double[] userAccounts = Konton[currentUserIndex];
-            string[] accountNames = new string[] { "Lönekonto", "Sparkonto" };
+            string[] accountNames = new string[] { "1 .Lönekonto", "2 .Sparkonto" };
 
             for (int i = 0; i < userAccounts.Length; i++)
             {
@@ -121,7 +122,7 @@ namespace Indivuiuelt_projekt
             
             Console.WriteLine("Överföring mellan konton: ");
             ShowAccountsAndBalnace();
-            Console.WriteLine("Välj ett konto att ta överföra ifrån");
+            Console.WriteLine("Välj konto efter siffta för att kunna överföra pengar");
             int fromAccount = int.Parse(Console.ReadLine()) - 1;
             if (fromAccount < 0 || fromAccount >= Konton[currentUserIndex].Length)
             {
@@ -158,7 +159,7 @@ namespace Indivuiuelt_projekt
         {
             Console.WriteLine("Ta ut pengar: ");
             ShowAccountsAndBalnace();
-            Console.WriteLine("Väj ett konto att ta ut pengar från: ");
+            Console.WriteLine("Väj ett konto efter siffra för att ta ut pengar ifrån ösnkat konto: ");
             int accountIndex = int.Parse(Console.ReadLine()) - 1;
             if (accountIndex < 0 || accountIndex >= Konton[currentUserIndex].Length)
             {
